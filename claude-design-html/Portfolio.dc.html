@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<![CDATA[<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #0A0A0B; color: #F2F0EB; font-family: 'Syne', system-ui, sans-serif; overflow-x: hidden; cursor: none; }
+  * { box-sizing: border-box; }
+  a { color: #F2F0EB; text-decoration: none; }
+  a:hover { color: oklch(0.78 0.15 62); }
+  ::selection { background: oklch(0.78 0.15 62); color: #0A0A0B; }
+  @keyframes drift { 0% { transform: translate3d(0,0,0); } 50% { transform: translate3d(0,-14px,0); } 100% { transform: translate3d(0,0,0); } }
+  @keyframes blink { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+</style>
+</helmet>
+
+<div data-root style="position:relative;background:#0A0A0B;">
+
+  <div data-el="grain" style="position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.2;mix-blend-mode:soft-light;background-image:url(data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='160'%20height='160'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.85'%20numOctaves='3'/%3E%3C/filter%3E%3Crect%20width='160'%20height='160'%20filter='url%28%23n%29'%20opacity='0.55'/%3E%3C/svg%3E);"></div>
+
+  <div data-el="cursor" style="position:fixed;top:0;left:0;z-index:80;pointer-events:none;transform:translate3d(-100px,-100px,0);will-change:transform;">
+    <div data-el="cursorDot" style="position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:oklch(0.78 0.15 62);transition:width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1),left .4s cubic-bezier(.16,1,.3,1),top .4s cubic-bezier(.16,1,.3,1),opacity .3s;"></div>
+    <div data-el="cursorLabel" style="position:absolute;left:0;top:0;transform:translate(-50%,-50%) scale(.5);opacity:0;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .35s;display:flex;align-items:center;justify-content:center;width:132px;height:132px;border-radius:50%;background:oklch(0.78 0.15 62);color:#0A0A0B;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-align:center;line-height:1.5;">VIEW<br />CASE STUDY →</div>
+  </div>
+
+  <header style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:26px 40px;mix-blend-mode:difference;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;">
+    <a href="#top" style="font-family:'Syne',sans-serif;font-weight:800;font-size:14px;letter-spacing:.02em;">MARA VELD<span style="color:oklch(0.78 0.15 62);">*</span></a>
+    <nav style="display:flex;gap:28px;align-items:center;">
+      <a href="#work" data-magnet="1">Work</a>
+      <a href="#process" data-magnet="1">Process</a>
+      <a href="#lab" data-magnet="1">Lab</a>
+      <a href="#contact" data-magnet="1">Contact</a>
+    </nav>
+    <div style="display:flex;gap:16px;align-items:center;"><span data-el="clock">—</span><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.78 0.15 62);animation:blink 2.4s steps(1) infinite;"></span></div>
+  </header>
+
+  <section id="top" data-track="hero" data-screen-label="Hero" style="height:340vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <div data-el="heroGlow" style="position:absolute;width:120vw;height:120vh;background:radial-gradient(closest-side, rgba(120,140,255,.14), rgba(10,10,11,0) 70%);will-change:transform;"></div>
+
+      <div data-frag="1" data-speed="34" data-rot="-6" style="position:absolute;left:5vw;top:16vh;width:230px;border:1px solid rgba(242,240,235,.16);background:rgba(242,240,235,.03);backdrop-filter:blur(6px);padding:14px;will-change:transform;">
+        <div style="display:flex;gap:5px;margin-bottom:12px;"><span style="width:7px;height:7px;border-radius:50%;background:rgba(242,240,235,.3);"></span><span style="width:7px;height:7px;border-radius:50%;background:rgba(242,240,235,.18);"></span><span style="width:7px;height:7px;border-radius:50%;background:rgba(242,240,235,.18);"></span></div>
+        <div style="display:grid;gap:7px;"><div style="height:8px;width:70%;background:rgba(242,240,235,.5);"></div><div style="height:8px;width:100%;background:rgba(242,240,235,.16);"></div><div style="height:8px;width:44%;background:oklch(0.78 0.15 62);"></div><div style="height:44px;background:repeating-linear-gradient(135deg,rgba(242,240,235,.1) 0 6px,transparent 6px 12px);"></div></div>
+        <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.16em;color:rgba(242,240,235,.4);">FRAGMENT / DASHBOARD</div>
+      </div>
+
+      <div data-frag="1" data-speed="-52" data-rot="8" style="position:absolute;right:7vw;top:12vh;width:132px;height:266px;border-radius:20px;border:1px solid rgba(242,240,235,.2);background:linear-gradient(180deg,rgba(242,240,235,.07),rgba(242,240,235,.02));padding:12px 10px;will-change:transform;">
+        <div style="width:38px;height:4px;border-radius:3px;background:rgba(242,240,235,.35);margin:0 auto 14px;"></div>
+        <div style="display:grid;gap:8px;"><div style="height:52px;border-radius:10px;background:oklch(0.62 0.15 250 / .35);"></div><div style="height:10px;width:80%;background:rgba(242,240,235,.28);"></div><div style="height:10px;width:55%;background:rgba(242,240,235,.16);"></div><div style="height:34px;border-radius:8px;border:1px dashed rgba(242,240,235,.25);"></div><div style="height:34px;border-radius:8px;background:rgba(242,240,235,.1);"></div></div>
+      </div>
+
+      <div data-frag="1" data-speed="70" data-rot="-14" style="position:absolute;left:12vw;bottom:12vh;width:200px;height:120px;border:1px dashed rgba(242,240,235,.3);will-change:transform;padding:10px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.16em;color:rgba(242,240,235,.42);">WIREFRAME 03</div>
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:8px;height:80px;margin-top:8px;"><div style="border:1px solid rgba(242,240,235,.2);"></div><div style="display:grid;gap:8px;"><div style="border:1px solid rgba(242,240,235,.2);"></div><div style="border:1px solid rgba(242,240,235,.2);"></div></div></div>
+      </div>
+
+      <div data-frag="1" data-speed="-30" data-rot="18" style="position:absolute;right:14vw;bottom:16vh;width:130px;height:130px;border-radius:50%;background:conic-gradient(from 200deg, oklch(0.78 0.15 62), oklch(0.62 0.15 250), oklch(0.78 0.15 62));filter:blur(1px);opacity:.85;will-change:transform;animation:drift 9s ease-in-out infinite;"></div>
+      <div data-frag="1" data-speed="46" data-rot="-20" style="position:absolute;left:44vw;top:9vh;width:74px;height:74px;border:1px solid rgba(242,240,235,.35);transform:rotate(45deg);will-change:transform;"></div>
+
+      <div data-el="heroType" style="position:relative;z-index:3;text-align:center;will-change:transform;padding:0 4vw;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.36em;color:rgba(242,240,235,.5);margin-bottom:20px;">PORTFOLIO — 2026 / INDEX</div>
+        <h1 style="margin:0;font-weight:800;font-size:clamp(48px,11.5vw,196px);line-height:.84;letter-spacing:-.045em;">UI/UX<br /><span style="display:inline-block;color:transparent;-webkit-text-stroke:1.5px #F2F0EB;">DESIGNER</span></h1>
+        <div style="overflow:hidden;margin-top:26px;">
+          <p data-el="heroLine" style="margin:0;font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.35vw,17px);letter-spacing:.22em;color:rgba(242,240,235,.78);will-change:transform;">I DESIGN HOW DIGITAL EXPERIENCES <span style="color:oklch(0.78 0.15 62);">FEEL</span>.</p>
+        </div>
+      </div>
+
+      <div data-el="heroScroll" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;color:rgba(242,240,235,.45);">SCROLL ↓</div>
+    </div>
+  </section>
+
+  <section data-track="words" data-screen-label="Scroll transformation" style="height:420vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <div data-el="wordsRule" style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(242,240,235,.14);transform-origin:left center;"></div>
+      <div data-word="0" style="position:absolute;font-weight:800;font-size:clamp(56px,16vw,260px);line-height:.8;letter-spacing:-.05em;will-change:transform,filter,opacity;">DESIGN</div>
+      <div data-word="1" style="position:absolute;font-weight:800;font-size:clamp(56px,16vw,260px);line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px #F2F0EB;will-change:transform,filter,opacity;">THINK</div>
+      <div data-word="2" style="position:absolute;font-weight:800;font-size:clamp(56px,16vw,260px);line-height:.8;letter-spacing:-.05em;will-change:transform,filter,opacity;">BUILD</div>
+      <div data-word="3" style="position:absolute;font-weight:800;font-size:clamp(56px,16vw,260px);line-height:.8;letter-spacing:-.05em;color:oklch(0.78 0.15 62);will-change:transform,filter,opacity;">ITERATE</div>
+      <div data-el="wordsMeta" style="position:absolute;bottom:38px;left:40px;right:40px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;color:rgba(242,240,235,.4);"><span>METHOD LOOP</span><span data-el="wordsPct">00%</span></div>
+    </div>
+  </section>
+
+  <section id="about" data-track="about" data-screen-label="About" style="position:relative;padding:16vh 5vw 20vh;">
+    <div style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:6vw;align-items:start;">
+      <h2 data-el="aboutHead" style="margin:0;font-weight:800;font-size:clamp(34px,5.6vw,96px);line-height:.95;letter-spacing:-.035em;text-wrap:balance;">I TURN COMPLEX PROBLEMS INTO <span style="color:oklch(0.78 0.15 62);">SIMPLE</span> EXPERIENCES.</h2>
+      <div style="display:grid;gap:22px;padding-top:12px;">
+        <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2;color:rgba(242,240,235,.62);">Ten years shaping products for fintech, health and culture. I work between research and craft — mapping systems, then making them feel effortless in the hand.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;color:rgba(242,240,235,.45);">
+          <div style="border-top:1px solid rgba(242,240,235,.16);padding-top:12px;">PRODUCT DESIGN<br />DESIGN SYSTEMS</div>
+          <div style="border-top:1px solid rgba(242,240,235,.16);padding-top:12px;">INTERACTION<br />CREATIVE DIRECTION</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:14vh;display:grid;grid-template-columns:repeat(6,1fr);gap:14px;">
+      <div data-stage="0" style="will-change:transform,opacity;border-top:1px solid rgba(242,240,235,.22);padding-top:16px;min-height:210px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:oklch(0.78 0.15 62);">01</div>
+        <div style="font-weight:700;font-size:clamp(14px,1.4vw,20px);margin:8px 0 16px;letter-spacing:-.01em;">RESEARCH</div>
+        <div style="display:grid;gap:6px;"><div style="height:6px;background:rgba(242,240,235,.3);"></div><div style="height:6px;width:70%;background:rgba(242,240,235,.14);"></div><div style="height:64px;background:repeating-linear-gradient(90deg,rgba(242,240,235,.12) 0 2px,transparent 2px 9px);"></div></div>
+      </div>
+      <div data-stage="1" style="will-change:transform,opacity;border-top:1px solid rgba(242,240,235,.22);padding-top:16px;min-height:210px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:oklch(0.78 0.15 62);">02</div>
+        <div style="font-weight:700;font-size:clamp(14px,1.4vw,20px);margin:8px 0 16px;letter-spacing:-.01em;">STRATEGY</div>
+        <div style="display:grid;gap:6px;"><div style="height:6px;width:50%;background:rgba(242,240,235,.3);"></div><div style="height:64px;border:1px solid rgba(242,240,235,.18);"></div><div style="height:6px;width:80%;background:rgba(242,240,235,.14);"></div></div>
+      </div>
+      <div data-stage="2" style="will-change:transform,opacity;border-top:1px solid rgba(242,240,235,.22);padding-top:16px;min-height:210px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:oklch(0.78 0.15 62);">03</div>
+        <div style="font-weight:700;font-size:clamp(14px,1.4vw,20px);margin:8px 0 16px;letter-spacing:-.01em;">WIREFRAME</div>
+        <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:6px;height:78px;"><div style="border:1px dashed rgba(242,240,235,.3);"></div><div style="display:grid;gap:6px;"><div style="border:1px dashed rgba(242,240,235,.3);"></div><div style="border:1px dashed rgba(242,240,235,.3);"></div></div></div>
+      </div>
+      <div data-stage="3" style="will-change:transform,opacity;border-top:1px solid rgba(242,240,235,.22);padding-top:16px;min-height:210px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:oklch(0.78 0.15 62);">04</div>
+        <div style="font-weight:700;font-size:clamp(14px,1.4vw,20px);margin:8px 0 16px;letter-spacing:-.01em;">PROTOTYPE</div>
+        <div style="position:relative;height:78px;border:1px solid rgba(242,240,235,.2);"><div style="position:absolute;left:12px;top:14px;width:44%;height:20px;background:rgba(242,240,235,.16);"></div><div style="position:absolute;right:12px;bottom:14px;width:34%;height:20px;background:oklch(0.62 0.15 250 / .45);"></div></div>
+      </div>
+      <div data-stage="4" style="will-change:transform,opacity;border-top:1px solid rgba(242,240,235,.22);padding-top:16px;min-height:210px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:oklch(0.78 0.15 62);">05</div>
+        <div style="font-weight:700;font-size:clamp(14px,1.4vw,20px);margin:8px 0 16px;letter-spacing:-.01em;">VISUAL</div>
+        <div style="height:78px;background:linear-gradient(135deg,oklch(0.62 0.15 250 / .5),oklch(0.78 0.15 62 / .4));"></div>
+      </div>
+      <div data-stage="5" style="will-change:transform,opacity;border-top:1px solid rgba(242,240,235,.22);padding-top:16px;min-height:210px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:oklch(0.78 0.15 62);">06</div>
+        <div style="font-weight:700;font-size:clamp(14px,1.4vw,20px);margin:8px 0 16px;letter-spacing:-.01em;">PRODUCT</div>
+        <div style="height:78px;background:#F2F0EB;display:flex;align-items:flex-end;padding:8px;"><div style="height:26px;width:100%;background:#0A0A0B;"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" data-track="p1" data-screen-label="Work 01" data-cursor="view" style="height:300vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <div data-el="bg" style="position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 60%, oklch(0.62 0.15 250 / .22), rgba(10,10,11,0) 70%);"></div>
+      <div data-el="num" style="position:absolute;left:4vw;top:14vh;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(242,240,235,.5);will-change:transform;">01 — FINTECH PLATFORM</div>
+      <h3 data-el="title" style="position:absolute;margin:0;font-weight:800;font-size:clamp(44px,11vw,180px);line-height:.85;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(242,240,235,.85);will-change:transform,opacity;pointer-events:none;z-index:4;">LEDGERA</h3>
+      <div data-el="scene" style="position:relative;width:min(74vw,1080px);will-change:transform;">
+        <div style="border:1px solid rgba(242,240,235,.18);background:linear-gradient(180deg,rgba(242,240,235,.06),rgba(242,240,235,.02));backdrop-filter:blur(8px);padding:18px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(242,240,235,.45);margin-bottom:14px;"><span>LEDGERA / TREASURY</span><span>USD 4,208,110.22</span></div>
+          <div style="display:grid;grid-template-columns:.8fr 2fr 1fr;gap:14px;height:min(46vh,340px);">
+            <div style="display:grid;gap:8px;align-content:start;"><div style="height:10px;width:80%;background:rgba(242,240,235,.4);"></div><div style="height:10px;width:60%;background:rgba(242,240,235,.16);"></div><div style="height:10px;width:70%;background:rgba(242,240,235,.16);"></div><div style="height:10px;width:40%;background:oklch(0.78 0.15 62);"></div></div>
+            <div style="border:1px solid rgba(242,240,235,.14);display:flex;align-items:flex-end;gap:6px;padding:14px;">
+              <div style="flex:1;height:32%;background:rgba(242,240,235,.18);"></div><div style="flex:1;height:58%;background:rgba(242,240,235,.24);"></div><div style="flex:1;height:44%;background:rgba(242,240,235,.18);"></div><div style="flex:1;height:78%;background:oklch(0.62 0.15 250 / .7);"></div><div style="flex:1;height:64%;background:rgba(242,240,235,.24);"></div><div style="flex:1;height:88%;background:oklch(0.78 0.15 62);"></div><div style="flex:1;height:52%;background:rgba(242,240,235,.18);"></div>
+            </div>
+            <div style="display:grid;gap:10px;align-content:start;"><div style="height:64px;border:1px solid rgba(242,240,235,.16);"></div><div style="height:64px;border:1px solid rgba(242,240,235,.16);"></div></div>
+          </div>
+        </div>
+        <div data-layer="1" style="position:absolute;left:-6%;bottom:-12%;width:230px;border:1px solid rgba(242,240,235,.24);background:#111114;padding:12px;will-change:transform;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.18em;color:rgba(242,240,235,.45);">PAYMENT SHEET</div>
+          <div style="margin-top:10px;display:grid;gap:7px;"><div style="height:8px;width:70%;background:rgba(242,240,235,.4);"></div><div style="height:8px;width:90%;background:rgba(242,240,235,.14);"></div><div style="height:26px;background:oklch(0.78 0.15 62);"></div></div>
+        </div>
+        <div data-layer="2" style="position:absolute;right:-5%;top:-10%;width:150px;height:150px;border-radius:50%;border:1px solid rgba(242,240,235,.3);background:radial-gradient(circle at 30% 30%, oklch(0.62 0.15 250 / .5), transparent 65%);will-change:transform;"></div>
+      </div>
+      <div data-el="meta" style="position:absolute;right:4vw;bottom:12vh;width:min(30vw,340px);display:grid;gap:12px;text-align:right;">
+        <div data-metaline="0" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">ROLE — LEAD PRODUCT DESIGNER</div>
+        <div data-metaline="1" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">SCOPE — RESEARCH, SYSTEM, MOTION</div>
+        <div data-metaline="2" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">RESULT — 41% FASTER RECONCILIATION</div>
+      </div>
+    </div>
+  </section>
+
+  <section data-track="p2" data-screen-label="Work 02" data-cursor="view" style="height:300vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <div data-el="bg" style="position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%, oklch(0.78 0.15 62 / .18), rgba(10,10,11,0) 70%);"></div>
+      <div data-el="num" style="position:absolute;left:4vw;top:14vh;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(242,240,235,.5);will-change:transform;">02 — BRAND EXPERIENCE</div>
+      <h3 data-el="title" style="position:absolute;margin:0;font-weight:800;font-size:clamp(44px,11vw,180px);line-height:.85;letter-spacing:-.05em;will-change:transform,opacity;pointer-events:none;z-index:4;">NOCTUA</h3>
+      <div data-el="scene" style="position:relative;width:min(70vw,1000px);will-change:transform;">
+        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px;">
+          <div style="aspect-ratio:16/10;background:repeating-linear-gradient(115deg,rgba(242,240,235,.09) 0 10px,transparent 10px 20px);border:1px solid rgba(242,240,235,.18);display:flex;align-items:flex-end;padding:18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(242,240,235,.5);">CAMPAIGN FILM / PLACEHOLDER</span></div>
+          <div style="display:grid;gap:16px;"><div style="background:#F2F0EB;color:#0A0A0B;padding:16px;font-weight:800;font-size:clamp(20px,2.6vw,44px);line-height:.9;letter-spacing:-.04em;">NIGHT<br />MODE<br />BRAND</div><div style="border:1px solid rgba(242,240,235,.18);flex:1;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(242,240,235,.45);">TYPE SPECIMEN</div></div>
+        </div>
+        <div data-layer="1" style="position:absolute;left:-8%;top:-14%;width:190px;height:120px;border:1px solid rgba(242,240,235,.25);background:#111114;padding:10px;will-change:transform;"><div style="height:100%;background:repeating-linear-gradient(0deg,rgba(242,240,235,.14) 0 1px,transparent 1px 8px);"></div></div>
+        <div data-layer="2" style="position:absolute;right:-7%;bottom:-12%;width:170px;height:170px;background:conic-gradient(from 40deg, oklch(0.78 0.15 62), #0A0A0B, oklch(0.78 0.15 62));border-radius:50%;filter:blur(2px);opacity:.8;will-change:transform;"></div>
+      </div>
+      <div data-el="meta" style="position:absolute;right:4vw;bottom:12vh;width:min(30vw,340px);display:grid;gap:12px;text-align:right;">
+        <div data-metaline="0" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">ROLE — CREATIVE DIRECTION</div>
+        <div data-metaline="1" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">SCOPE — IDENTITY, SITE, MOTION</div>
+        <div data-metaline="2" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">RESULT — 3.2× LAUNCH ENGAGEMENT</div>
+      </div>
+    </div>
+  </section>
+
+  <section data-track="p3" data-screen-label="Work 03" data-cursor="view" style="height:300vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <div data-el="bg" style="position:absolute;inset:0;background:radial-gradient(55% 55% at 40% 50%, rgba(242,240,235,.12), rgba(10,10,11,0) 70%);"></div>
+      <div data-el="num" style="position:absolute;left:4vw;top:14vh;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(242,240,235,.5);will-change:transform;">03 — HEALTH COMPANION</div>
+      <h3 data-el="title" style="position:absolute;margin:0;font-weight:800;font-size:clamp(44px,11vw,180px);line-height:.85;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px oklch(0.78 0.15 62);will-change:transform,opacity;pointer-events:none;z-index:4;">PULSE OS</h3>
+      <div data-el="scene" style="position:relative;display:flex;gap:22px;align-items:center;will-change:transform;">
+        <div style="width:190px;height:390px;border-radius:30px;border:1px solid rgba(242,240,235,.25);background:linear-gradient(180deg,#131317,#0d0d10);padding:16px 14px;">
+          <div style="width:44px;height:5px;border-radius:3px;background:rgba(242,240,235,.3);margin:0 auto 18px;"></div>
+          <div style="font-weight:800;font-size:26px;letter-spacing:-.03em;">Today</div>
+          <div style="margin-top:14px;display:grid;gap:10px;"><div style="height:70px;border-radius:14px;background:oklch(0.78 0.15 62 / .85);"></div><div style="height:44px;border-radius:12px;background:rgba(242,240,235,.1);"></div><div style="height:44px;border-radius:12px;background:rgba(242,240,235,.07);"></div><div style="height:44px;border-radius:12px;border:1px dashed rgba(242,240,235,.22);"></div></div>
+        </div>
+        <div data-layer="1" style="width:190px;height:390px;border-radius:30px;border:1px solid rgba(242,240,235,.18);background:linear-gradient(180deg,#101014,#0b0b0e);padding:16px 14px;will-change:transform;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(242,240,235,.4);">TREND / 30D</div>
+          <div style="margin-top:16px;height:150px;display:flex;align-items:flex-end;gap:4px;"><div style="flex:1;height:40%;background:rgba(242,240,235,.2);"></div><div style="flex:1;height:66%;background:rgba(242,240,235,.2);"></div><div style="flex:1;height:52%;background:rgba(242,240,235,.2);"></div><div style="flex:1;height:82%;background:oklch(0.62 0.15 250 / .8);"></div><div style="flex:1;height:70%;background:rgba(242,240,235,.2);"></div></div>
+          <div style="margin-top:18px;display:grid;gap:8px;"><div style="height:9px;width:70%;background:rgba(242,240,235,.28);"></div><div style="height:9px;width:52%;background:rgba(242,240,235,.14);"></div></div>
+        </div>
+        <div data-layer="2" style="width:190px;height:390px;border-radius:30px;border:1px solid rgba(242,240,235,.14);background:#0e0e12;will-change:transform;padding:16px 14px;">
+          <div style="height:100%;background:repeating-linear-gradient(135deg,rgba(242,240,235,.08) 0 8px,transparent 8px 16px);"></div>
+        </div>
+      </div>
+      <div data-el="meta" style="position:absolute;right:4vw;bottom:12vh;width:min(30vw,340px);display:grid;gap:12px;text-align:right;">
+        <div data-metaline="0" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">ROLE — UX LEAD</div>
+        <div data-metaline="1" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">SCOPE — 42 SCREENS, DESIGN SYSTEM</div>
+        <div data-metaline="2" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">RESULT — 4.8 APP STORE RATING</div>
+      </div>
+    </div>
+  </section>
+
+  <section data-track="p4" data-screen-label="Work 04" data-cursor="view" style="height:300vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <div data-el="bg" style="position:absolute;inset:0;background:radial-gradient(60% 60% at 60% 55%, oklch(0.62 0.15 250 / .2), rgba(10,10,11,0) 72%);"></div>
+      <div data-el="num" style="position:absolute;left:4vw;top:14vh;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(242,240,235,.5);will-change:transform;">04 — SPATIAL COMMERCE</div>
+      <h3 data-el="title" style="position:absolute;margin:0;font-weight:800;font-size:clamp(44px,11vw,180px);line-height:.85;letter-spacing:-.05em;will-change:transform,opacity;pointer-events:none;z-index:4;">ATRIA</h3>
+      <div data-el="scene" style="position:relative;width:min(66vw,940px);will-change:transform;">
+        <div style="aspect-ratio:16/9;border:1px solid rgba(242,240,235,.2);background:linear-gradient(180deg,rgba(242,240,235,.05),rgba(242,240,235,.01));display:grid;grid-template-columns:repeat(3,1fr);gap:1px;">
+          <div style="border-right:1px solid rgba(242,240,235,.1);display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(242,240,235,.4);">CATALOG</div>
+          <div style="border-right:1px solid rgba(242,240,235,.1);display:grid;place-items:center;"><div style="width:58%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 34% 30%, #F2F0EB, #55555f 55%, #16161a);box-shadow:0 30px 60px rgba(0,0,0,.6);"></div></div>
+          <div style="display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(242,240,235,.4);">CONFIGURATOR</div>
+        </div>
+        <div data-layer="1" style="position:absolute;left:-7%;bottom:-14%;width:250px;border:1px solid rgba(242,240,235,.24);background:#111114;padding:12px;will-change:transform;">
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.16em;color:rgba(242,240,235,.45);"><span>MATERIAL</span><span>04 / 12</span></div>
+          <div style="margin-top:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;"><div style="aspect-ratio:1;background:#F2F0EB;"></div><div style="aspect-ratio:1;background:oklch(0.78 0.15 62);"></div><div style="aspect-ratio:1;background:oklch(0.62 0.15 250);"></div><div style="aspect-ratio:1;border:1px solid rgba(242,240,235,.3);"></div></div>
+        </div>
+        <div data-layer="2" style="position:absolute;right:-6%;top:-12%;width:120px;height:120px;border:1px solid rgba(242,240,235,.3);transform:rotate(45deg);will-change:transform;"></div>
+      </div>
+      <div data-el="meta" style="position:absolute;right:4vw;bottom:12vh;width:min(30vw,340px);display:grid;gap:12px;text-align:right;">
+        <div data-metaline="0" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">ROLE — INTERACTION DESIGN</div>
+        <div data-metaline="1" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">SCOPE — 3D CONFIGURATOR, MOTION</div>
+        <div data-metaline="2" style="will-change:transform,opacity;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:rgba(242,240,235,.6);">RESULT — +28% ADD TO CART</div>
+      </div>
+    </div>
+  </section>
+
+  <section data-track="seq" data-screen-label="Image sequence" style="height:380vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <div style="position:absolute;top:12vh;left:0;right:0;display:flex;justify-content:space-between;padding:0 4vw;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;color:rgba(242,240,235,.45);">
+        <span>SEQUENCE — SKETCH TO SHIP</span><span data-el="frame">FRAME 001 / 180</span>
+      </div>
+      <div style="position:relative;width:min(58vw,760px);aspect-ratio:4/3;">
+        <div data-seq="0" style="position:absolute;inset:0;will-change:opacity,transform;background:#0d0d10;border:1px solid rgba(242,240,235,.16);padding:22px;">
+          <div style="height:100%;background:repeating-linear-gradient(105deg,rgba(242,240,235,.14) 0 1px,transparent 1px 7px);"></div>
+        </div>
+        <div data-seq="1" style="position:absolute;inset:0;will-change:opacity,transform;background:#0d0d10;border:1px solid rgba(242,240,235,.16);padding:22px;display:grid;grid-template-rows:auto 1fr;gap:12px;">
+          <div style="display:grid;grid-template-columns:1fr 3fr;gap:12px;height:34px;"><div style="border:1px dashed rgba(242,240,235,.3);"></div><div style="border:1px dashed rgba(242,240,235,.3);"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 2.2fr;gap:12px;"><div style="border:1px dashed rgba(242,240,235,.3);"></div><div style="display:grid;grid-template-rows:1fr 1fr;gap:12px;"><div style="border:1px dashed rgba(242,240,235,.3);"></div><div style="border:1px dashed rgba(242,240,235,.3);"></div></div></div>
+        </div>
+        <div data-seq="2" style="position:absolute;inset:0;will-change:opacity,transform;background:#0d0d10;border:1px solid rgba(242,240,235,.2);padding:22px;display:grid;grid-template-rows:auto 1fr;gap:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;"><div style="height:10px;width:110px;background:rgba(242,240,235,.5);"></div><div style="height:26px;width:88px;background:oklch(0.78 0.15 62);"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 2.2fr;gap:12px;"><div style="display:grid;gap:8px;align-content:start;"><div style="height:8px;background:rgba(242,240,235,.25);"></div><div style="height:8px;width:70%;background:rgba(242,240,235,.15);"></div><div style="height:8px;width:80%;background:rgba(242,240,235,.15);"></div></div><div style="display:grid;grid-template-rows:1.4fr 1fr;gap:12px;"><div style="background:rgba(242,240,235,.07);border:1px solid rgba(242,240,235,.14);"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div style="background:rgba(242,240,235,.07);"></div><div style="background:rgba(242,240,235,.07);"></div></div></div></div>
+        </div>
+        <div data-seq="3" style="position:absolute;inset:0;will-change:opacity,transform;background:linear-gradient(180deg,#131318,#0c0c0f);border:1px solid rgba(242,240,235,.24);padding:22px;display:grid;grid-template-rows:auto 1fr;gap:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-weight:800;font-size:20px;letter-spacing:-.02em;">Overview</div><div style="height:28px;width:96px;border-radius:14px;background:oklch(0.78 0.15 62);"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 2.2fr;gap:12px;"><div style="display:grid;gap:8px;align-content:start;"><div style="height:30px;border-radius:8px;background:rgba(242,240,235,.12);"></div><div style="height:30px;border-radius:8px;background:rgba(242,240,235,.06);"></div><div style="height:30px;border-radius:8px;background:rgba(242,240,235,.06);"></div></div><div style="display:grid;grid-template-rows:1.4fr 1fr;gap:12px;"><div style="border-radius:12px;background:linear-gradient(135deg,oklch(0.62 0.15 250 / .45),rgba(242,240,235,.05));"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div style="border-radius:12px;background:rgba(242,240,235,.09);"></div><div style="border-radius:12px;background:rgba(242,240,235,.09);"></div></div></div></div>
+        </div>
+        <div data-seq="4" style="position:absolute;inset:0;will-change:opacity,transform;background:#F2F0EB;color:#0A0A0B;border:1px solid rgba(242,240,235,.3);padding:22px;display:grid;grid-template-rows:auto 1fr;gap:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-weight:800;font-size:22px;letter-spacing:-.03em;">Ledgera</div><div style="height:30px;width:104px;border-radius:15px;background:#0A0A0B;"></div></div>
+          <div style="display:grid;grid-template-columns:1fr 2.2fr;gap:12px;"><div style="display:grid;gap:8px;align-content:start;"><div style="height:30px;border-radius:8px;background:rgba(10,10,11,.9);"></div><div style="height:30px;border-radius:8px;background:rgba(10,10,11,.08);"></div><div style="height:30px;border-radius:8px;background:rgba(10,10,11,.08);"></div></div><div style="display:grid;grid-template-rows:1.4fr 1fr;gap:12px;"><div style="border-radius:12px;background:linear-gradient(135deg,oklch(0.62 0.15 250),oklch(0.78 0.15 62));"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><div style="border-radius:12px;background:rgba(10,10,11,.07);"></div><div style="border-radius:12px;background:rgba(10,10,11,.07);"></div></div></div></div>
+        </div>
+      </div>
+      <div data-el="seqLabels" style="position:absolute;bottom:12vh;left:0;right:0;display:flex;justify-content:center;gap:min(4vw,54px);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;">
+        <span data-seqlabel="0" style="color:rgba(242,240,235,.3);">SKETCH</span>
+        <span data-seqlabel="1" style="color:rgba(242,240,235,.3);">WIREFRAME</span>
+        <span data-seqlabel="2" style="color:rgba(242,240,235,.3);">UI</span>
+        <span data-seqlabel="3" style="color:rgba(242,240,235,.3);">PROTOTYPE</span>
+        <span data-seqlabel="4" style="color:rgba(242,240,235,.3);">FINAL</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" data-track="proc" data-screen-label="Process" style="height:520vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;">
+      <div style="position:absolute;top:14vh;left:4vw;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(242,240,235,.5);">HOW I WORK — SIX MOVES</div>
+      <div data-el="procRow" style="position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;gap:6vw;padding:0 12vw;will-change:transform;">
+        <div data-step="0" style="min-width:44vw;will-change:transform,opacity;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:oklch(0.78 0.15 62);">01</div><div style="font-weight:800;font-size:clamp(40px,7.5vw,124px);line-height:.9;letter-spacing:-.045em;">RESEARCH</div><p style="max-width:34ch;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;color:rgba(242,240,235,.55);">Interviews, telemetry, and journey maps. I look for the friction people stopped complaining about.</p></div>
+        <div data-step="1" style="min-width:44vw;will-change:transform,opacity;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:oklch(0.78 0.15 62);">02</div><div style="font-weight:800;font-size:clamp(40px,7.5vw,124px);line-height:.9;letter-spacing:-.045em;color:transparent;-webkit-text-stroke:1.5px #F2F0EB;">DEFINE</div><p style="max-width:34ch;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;color:rgba(242,240,235,.55);">One sentence the whole team can repeat. Scope becomes a decision, not a debate.</p></div>
+        <div data-step="2" style="min-width:44vw;will-change:transform,opacity;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:oklch(0.78 0.15 62);">03</div><div style="font-weight:800;font-size:clamp(40px,7.5vw,124px);line-height:.9;letter-spacing:-.045em;">IDEATE</div><p style="max-width:34ch;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;color:rgba(242,240,235,.55);">Volume first. Forty sketches before one screen earns pixels.</p></div>
+        <div data-step="3" style="min-width:44vw;will-change:transform,opacity;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:oklch(0.78 0.15 62);">04</div><div style="font-weight:800;font-size:clamp(40px,7.5vw,124px);line-height:.9;letter-spacing:-.045em;color:transparent;-webkit-text-stroke:1.5px #F2F0EB;">PROTOTYPE</div><p style="max-width:34ch;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;color:rgba(242,240,235,.55);">Motion, states and edge cases in the browser — where the feel is real.</p></div>
+        <div data-step="4" style="min-width:44vw;will-change:transform,opacity;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:oklch(0.78 0.15 62);">05</div><div style="font-weight:800;font-size:clamp(40px,7.5vw,124px);line-height:.9;letter-spacing:-.045em;">TEST</div><p style="max-width:34ch;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;color:rgba(242,240,235,.55);">Five users, one hypothesis, no leading questions. Repeat weekly.</p></div>
+        <div data-step="5" style="min-width:44vw;will-change:transform,opacity;"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:oklch(0.78 0.15 62);">06</div><div style="font-weight:800;font-size:clamp(40px,7.5vw,124px);line-height:.9;letter-spacing:-.045em;color:oklch(0.78 0.15 62);">SHIP</div><p style="max-width:34ch;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;color:rgba(242,240,235,.55);">Specs, tokens, and pairing with engineers until the build matches the intent.</p></div>
+      </div>
+      <div style="position:absolute;bottom:9vh;left:4vw;right:4vw;height:1px;background:rgba(242,240,235,.14);"><div data-el="procBar" style="height:1px;background:oklch(0.78 0.15 62);width:0%;"></div></div>
+    </div>
+  </section>
+
+  <section id="lab" data-track="lab" data-screen-label="Experiments" style="position:relative;min-height:120vh;padding:18vh 5vw;overflow:hidden;">
+    <h2 style="margin:0;font-weight:800;font-size:clamp(32px,5vw,84px);line-height:.95;letter-spacing:-.04em;max-width:16ch;">THE LAB — THINGS BUILT FOR NO GOOD REASON.</h2>
+    <div data-el="labField" style="position:relative;height:78vh;margin-top:6vh;">
+      <div data-float="1" data-fs="26" style="position:absolute;left:4%;top:6%;width:220px;height:140px;border:1px solid rgba(242,240,235,.2);background:rgba(242,240,235,.03);display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:rgba(242,240,235,.5);transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .4s;" style-hover="border-color:oklch(0.78 0.15 62);transform:scale(1.06);">ELASTIC SLIDER</div>
+      <div data-float="1" data-fs="-40" style="position:absolute;left:34%;top:0%;width:150px;height:150px;border-radius:50%;background:conic-gradient(from 120deg, oklch(0.62 0.15 250), #0A0A0B, oklch(0.62 0.15 250));opacity:.85;transition:transform .5s cubic-bezier(.16,1,.3,1);" style-hover="transform:scale(1.12) rotate(20deg);"></div>
+      <div data-float="1" data-fs="54" style="position:absolute;right:8%;top:10%;width:260px;border:1px solid rgba(242,240,235,.2);padding:14px;background:#0e0e12;transition:transform .5s cubic-bezier(.16,1,.3,1);" style-hover="transform:translateY(-10px) rotate(-2deg);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(242,240,235,.45);">MICRO-INTERACTION 07</div>
+        <div style="margin-top:12px;display:flex;gap:8px;align-items:center;"><div style="width:46px;height:26px;border-radius:13px;background:oklch(0.78 0.15 62);position:relative;"><div style="position:absolute;right:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#0A0A0B;"></div></div><div style="height:8px;flex:1;background:rgba(242,240,235,.14);"></div></div>
+      </div>
+      <div data-float="1" data-fs="-22" style="position:absolute;left:14%;bottom:12%;width:190px;height:190px;border:1px solid rgba(242,240,235,.28);transform:rotate(12deg);display:grid;place-items:center;font-weight:800;font-size:34px;letter-spacing:-.03em;transition:transform .6s cubic-bezier(.16,1,.3,1);" style-hover="transform:rotate(0deg) scale(1.05);">AA→</div>
+      <div data-float="1" data-fs="36" style="position:absolute;right:22%;bottom:6%;width:230px;height:120px;background:repeating-linear-gradient(90deg,rgba(242,240,235,.16) 0 2px,transparent 2px 10px);transition:transform .5s cubic-bezier(.16,1,.3,1);" style-hover="transform:scaleY(1.25);"></div>
+      <div data-float="1" data-fs="-58" style="position:absolute;left:48%;bottom:26%;width:120px;height:120px;border-radius:50%;border:1px solid rgba(242,240,235,.35);display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.18em;color:rgba(242,240,235,.55);transition:transform .5s cubic-bezier(.16,1,.3,1);" style-hover="transform:scale(1.15);">MOTION<br />STUDY</div>
+    </div>
+  </section>
+
+  <section data-track="quote" data-screen-label="Testimonial" style="height:220vh;position:relative;">
+    <div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:44px;padding:0 6vw;">
+      <blockquote data-el="quote" style="margin:0;text-align:center;font-weight:700;font-size:clamp(28px,5.2vw,88px);line-height:1.02;letter-spacing:-.035em;max-width:18ch;">
+        <span data-qw="0" style="display:inline-block;overflow:hidden;"><span style="display:inline-block;will-change:transform,opacity;">“Great</span></span>
+        <span data-qw="1" style="display:inline-block;overflow:hidden;"><span style="display:inline-block;will-change:transform,opacity;">design</span></span>
+        <span data-qw="2" style="display:inline-block;overflow:hidden;"><span style="display:inline-block;will-change:transform,opacity;">disappears</span></span>
+        <span data-qw="3" style="display:inline-block;overflow:hidden;"><span style="display:inline-block;will-change:transform,opacity;">into</span></span>
+        <span data-qw="4" style="display:inline-block;overflow:hidden;"><span style="display:inline-block;will-change:transform,opacity;">the</span></span>
+        <span data-qw="5" style="display:inline-block;overflow:hidden;"><span style="display:inline-block;will-change:transform,opacity;">experience.”</span></span>
+      </blockquote>
+      <div data-el="quoteMeta" style="display:flex;align-items:center;gap:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:rgba(242,240,235,.55);will-change:transform,opacity;">
+        <span style="width:34px;height:34px;border-radius:50%;background:repeating-linear-gradient(45deg,rgba(242,240,235,.18) 0 4px,transparent 4px 8px);"></span>
+        JUNO REYES — VP PRODUCT, LEDGERA
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" data-track="contact" data-screen-label="Contact" style="height:260vh;position:relative;">
+    <div data-el="stage" style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <h2 data-el="cta" style="margin:0;text-align:center;font-weight:800;font-size:clamp(38px,9vw,150px);line-height:.86;letter-spacing:-.05em;will-change:transform;">LET'S MAKE<br />SOMETHING WORTH<br /><span style="color:oklch(0.78 0.15 62);">EXPERIENCING.</span></h2>
+      <div data-el="contactInfo" style="margin-top:52px;display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:center;will-change:transform,opacity;">
+        <a href="mailto:studio@maraveld.com" data-magnet="1" style="display:inline-flex;align-items:center;gap:12px;padding:18px 30px;border-radius:40px;background:#F2F0EB;color:#0A0A0B;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;transition:transform .4s cubic-bezier(.16,1,.3,1);" style-hover="transform:scale(1.05);">START A PROJECT →</a>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;color:rgba(242,240,235,.55);">STUDIO@MARAVELD.COM</span>
+      </div>
+      <div style="position:absolute;bottom:30px;left:40px;right:40px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;color:rgba(242,240,235,.35);">
+        <span>© 2026 MARA VELD</span><span>LISBON — REMOTE WORLDWIDE</span><a href="#top">BACK TO TOP ↑</a>
+      </div>
+    </div>
+  </section>
+</div>]]>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = document.querySelector('[data-root]');
+    if (!root) return;
+    this.root = root;
+    this.tracks = [...root.querySelectorAll('[data-track]')].map(el => ({ el, name: el.dataset.track }));
+    this.cursor = root.querySelector('[data-el="cursor"]');
+    this.cdot = root.querySelector('[data-el="cursorDot"]');
+    this.clabel = root.querySelector('[data-el="cursorLabel"]');
+    this.mouse = { x: innerWidth / 2, y: innerHeight / 2 };
+    this.pos = { ...this.mouse };
+    this.labFloats = [...root.querySelectorAll('[data-float]')];
+
+    this.onScroll = () => { this.dirty = true; };
+    this.onMove = e => {
+      this.mouse.x = e.clientX; this.mouse.y = e.clientY;
+      const t = e.target.closest ? e.target.closest('[data-cursor="view"]') : null;
+      this.setCursor(!!t);
+      const m = e.target.closest ? e.target.closest('[data-magnet]') : null;
+      if (m !== this.magnet) { if (this.magnet) this.magnet.style.transform = 'translate3d(0,0,0)'; this.magnet = m; }
+      if (m) {
+        const r = m.getBoundingClientRect();
+        m.style.transition = 'transform .35s cubic-bezier(.16,1,.3,1)';
+        m.style.transform = `translate3d(${(e.clientX - (r.left + r.width / 2)) * 0.35}px,${(e.clientY - (r.top + r.height / 2)) * 0.4}px,0)`;
+      }
+    };
+    addEventListener('scroll', this.onScroll, { passive: true });
+    addEventListener('resize', this.onScroll);
+    addEventListener('mousemove', this.onMove, { passive: true });
+
+    const clock = root.querySelector('[data-el="clock"]');
+    const tick = () => { if (clock) clock.textContent = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + ' WEST'; };
+    tick(); this.clockId = setInterval(tick, 20000);
+
+    this.dirty = true;
+    const loop = () => {
+      this.pos.x += (this.mouse.x - this.pos.x) * 0.16;
+      this.pos.y += (this.mouse.y - this.pos.y) * 0.16;
+      if (this.cursor) this.cursor.style.transform = `translate3d(${this.pos.x}px,${this.pos.y}px,0)`;
+      if (this.dirty) { this.dirty = false; this.update(); }
+      this.raf = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+  componentWillUnmount() {
+    removeEventListener('scroll', this.onScroll); removeEventListener('resize', this.onScroll);
+    removeEventListener('mousemove', this.onMove);
+    cancelAnimationFrame(this.raf); clearInterval(this.clockId);
+  }
+  setCursor(on) {
+    if (on === this.cursorOn) return;
+    this.cursorOn = on;
+    if (this.clabel) { this.clabel.style.opacity = on ? '1' : '0'; this.clabel.style.transform = `translate(-50%,-50%) scale(${on ? 1 : 0.5})`; }
+    if (this.cdot) this.cdot.style.opacity = on ? '0' : '1';
+  }
+  update() {
+    const vh = innerHeight, vw = innerWidth;
+    const cl = (v, a, b) => Math.min(b, Math.max(a, v));
+    const seg = (p, a, b) => cl((p - a) / (b - a), 0, 1);
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    for (const t of this.tracks) {
+      const r = t.el.getBoundingClientRect();
+      const total = r.height - vh;
+      const p = cl(-r.top / (total || 1), 0, 1);
+      const vis = r.top < vh && r.bottom > 0;
+      if (!vis && t.done === p) continue;
+      t.done = p;
+      const q = s => t.el.querySelector(`[data-el="${s}"]`);
+      const qa = s => t.el.querySelectorAll(s);
+      if (t.name === 'hero') {
+        const ht = q('heroType');
+        if (ht) { const s = 1 - 0.55 * ease(p); ht.style.transform = `translate3d(0,${-p * 16}vh,0) scale(${s})`; ht.style.opacity = String(cl(1 - seg(p, 0.72, 0.98), 0, 1)); }
+        const line = q('heroLine');
+        if (line) line.style.transform = `translate3d(0,${seg(p, 0.55, 0.85) * 120}%,0)`;
+        const g = q('heroGlow'); if (g) g.style.transform = `translate3d(${(this.pos.x / vw - 0.5) * 40}px,${-p * 18 + (this.pos.y / vh - 0.5) * 30}px,0)`;
+        qa('[data-frag]').forEach(f => {
+          const sp = +f.dataset.speed, rot = +f.dataset.rot;
+          const mx = (this.pos.x / vw - 0.5) * sp * 0.5, my = (this.pos.y / vh - 0.5) * sp * 0.35;
+          f.style.transform = `translate3d(${mx}px,${-p * sp * 3.2 + my}px,0) rotate(${rot * (0.3 + p * 1.6)}deg) scale(${1 - p * 0.25})`;
+          f.style.opacity = String(cl(1 - seg(p, 0.6, 0.95), 0, 1));
+        });
+        const sc = q('heroScroll'); if (sc) sc.style.opacity = String(cl(1 - seg(p, 0, 0.15), 0, 1));
+      } else if (t.name === 'words') {
+        const dirs = [[-1, 0.25], [0.9, -0.55], [-0.8, -0.3], [0.7, 0.45]];
+        qa('[data-word]').forEach((w, i) => {
+          const a = i * 0.25, wp = cl((p - a) / 0.25, 0, 1);
+          const d = 2 * wp - 1;
+          const [dx, dy] = dirs[i];
+          w.style.transform = `translate3d(${d * dx * 62}vw,${d * dy * 46}vh,0) scale(${1 + (1 - Math.abs(d)) * 0.16}) rotate(${d * dx * 2}deg)`;
+          w.style.filter = `blur(${Math.abs(d) * 26}px)`;
+          w.style.opacity = String(cl(1 - Math.pow(Math.abs(d), 1.7), 0, 1));
+        });
+        const rule = q('wordsRule'); if (rule) rule.style.transform = `scaleX(${p}) translateY(${Math.sin(p * 6.28) * 40}px)`;
+        const pct = q('wordsPct'); if (pct) pct.textContent = String(Math.round(p * 100)).padStart(2, '0') + '%';
+      } else if (t.name === 'about') {
+        const enter = cl((vh - r.top) / (vh * 0.9), 0, 1);
+        const head = q('aboutHead'); if (head) { head.style.transform = `translate3d(0,${(1 - ease(enter)) * 40}px,0)`; head.style.opacity = String(cl(enter * 1.4, 0, 1)); }
+        qa('[data-stage]').forEach((s, i) => {
+          const sp = cl((enter - 0.22 - i * 0.09) / 0.3, 0, 1);
+          s.style.transform = `translate3d(0,${(1 - ease(sp)) * 70}px,0)`;
+          s.style.opacity = String(sp);
+        });
+      } else if (t.name && t.name[0] === 'p' && t.name.length === 2) {
+        const inP = ease(seg(p, 0, 0.45)), out = seg(p, 0.82, 1);
+        const scene = q('scene');
+        if (scene) {
+          const s = (0.68 + 0.32 * inP) * (1 - out * 0.35);
+          scene.style.transform = `translate3d(${out * 30}vw,0,0) scale(${s}) rotate(${out * 8}deg)`;
+          scene.style.opacity = String(1 - out);
+          scene.style.filter = `blur(${out * 14}px)`;
+        }
+        qa('[data-layer]').forEach((l, i) => {
+          const k = (i + 1) * (i === 0 ? 1 : 1.6);
+          l.style.transform = `translate3d(${(inP - 0.3) * k * 40}px,${(0.3 - inP) * k * 34}px,0) rotate(${(inP - 0.5) * k * 3}deg)`;
+          l.style.opacity = String(cl(seg(p, 0.12, 0.4) * (1 - out), 0, 1));
+        });
+        const title = q('title');
+        if (title) {
+          const tp = seg(p, 0.05, 0.9);
+          title.style.transform = `translate3d(0,${(0.5 - tp) * 78}vh,0)`;
+          title.style.opacity = String(cl(seg(p, 0.02, 0.16) - out, 0, 1));
+        }
+        const num = q('num'); if (num) num.style.transform = `translate3d(${-out * 30}vw,0,0)`;
+        qa('[data-metaline]').forEach((m, i) => {
+          const mp = cl((p - 0.4 - i * 0.09) / 0.22, 0, 1) * (1 - out);
+          m.style.transform = `translate3d(${(1 - ease(mp)) * 40}px,0,0)`;
+          m.style.opacity = String(mp);
+        });
+        const bg = q('bg'); if (bg) bg.style.opacity = String(cl(0.3 + inP * 0.7 - out, 0, 1));
+      } else if (t.name === 'seq') {
+        const total = 180, f = Math.max(1, Math.round(p * total));
+        const fr = q('frame'); if (fr) fr.textContent = `FRAME ${String(f).padStart(3, '0')} / ${total}`;
+        const stages = qa('[data-seq]'), n = stages.length;
+        const x = p * (n - 1);
+        stages.forEach((s, i) => {
+          const d = Math.abs(x - i);
+          const o = cl(1 - d, 0, 1);
+          s.style.opacity = String(i === 0 ? Math.max(o, x < 0.001 ? 1 : o) : o);
+          s.style.transform = `scale(${1 - Math.min(d, 1) * 0.06}) translate3d(0,${(x - i) * -18}px,0)`;
+          s.style.filter = `blur(${Math.min(d, 1) * 6}px)`;
+        });
+        qa('[data-seqlabel]').forEach((l, i) => {
+          const on = Math.round(x) === i;
+          l.style.color = on ? 'oklch(0.78 0.15 62)' : 'rgba(242,240,235,.3)';
+        });
+      } else if (t.name === 'proc') {
+        const row = q('procRow');
+        if (row) {
+          const dist = Math.max(0, row.scrollWidth - vw);
+          row.style.transform = `translate3d(${-p * dist}px,0,0)`;
+          qa('[data-step]').forEach((s, i) => {
+            const c = s.getBoundingClientRect(), cx = c.left + c.width / 2;
+            const near = cl(1 - Math.abs(cx - vw / 2) / (vw * 0.75), 0, 1);
+            s.style.opacity = String(0.18 + near * 0.82);
+            s.style.transform = `translate3d(0,${(1 - near) * 40}px,0) scale(${0.94 + near * 0.06})`;
+          });
+        }
+        const bar = q('procBar'); if (bar) bar.style.width = (p * 100).toFixed(1) + '%';
+      } else if (t.name === 'lab') {
+        const enter = (vh - r.top) / (vh + r.height);
+        this.labFloats.forEach(f => {
+          const sp = +f.dataset.fs;
+          const mx = (this.pos.x / vw - 0.5) * sp * 0.4, my = (this.pos.y / vh - 0.5) * sp * 0.25;
+          f.style.marginTop = ((enter - 0.5) * -sp * 1.6 + my) + 'px';
+          f.style.marginLeft = mx + 'px';
+        });
+      } else if (t.name === 'quote') {
+        qa('[data-qw] > span').forEach((w, i) => {
+          const wp = cl((p - 0.1 - i * 0.07) / 0.2, 0, 1);
+          w.style.transform = `translate3d(0,${(1 - ease(wp)) * 110}%,0)`;
+          w.style.opacity = String(0.15 + wp * 0.85);
+        });
+        const m = q('quoteMeta');
+        if (m) { const mp = seg(p, 0.62, 0.8); m.style.opacity = String(mp); m.style.transform = `translate3d(0,${(1 - ease(mp)) * 26}px,0)`; }
+      } else if (t.name === 'contact') {
+        const cta = q('cta');
+        if (cta) cta.style.transform = `scale(${0.82 + ease(seg(p, 0, 0.7)) * 0.3})`;
+        const st = q('stage');
+        if (st) { const k = seg(p, 0.2, 0.9); st.style.background = `radial-gradient(70% 70% at 50% 60%, oklch(0.78 0.15 62 / ${(0.16 * k).toFixed(3)}), rgba(10,10,11,0) 70%)`; }
+        const info = q('contactInfo');
+        if (info) { const ip = seg(p, 0.45, 0.75); info.style.opacity = String(ip); info.style.transform = `translate3d(0,${(1 - ease(ip)) * 40}px,0)`; }
+      }
+    }
+  }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
