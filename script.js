@@ -11,9 +11,70 @@ class Component extends DCLogic {
     this.clabel = root.querySelector('[data-el="cursorLabel"]');
     this.mouse = { x: innerWidth / 2, y: innerHeight / 2 };
     this.pos = { ...this.mouse };
+    this.heroStage = root.querySelector('.hero-stage');
+    this.heroTrailSources = [
+      './assets/work/bhushan-first-case-study.jpg',
+      './assets/work/dignisys-health.png',
+      './assets/work/dignisys-logistics.png'
+    ];
+    this.heroTrailPreloads = this.heroTrailSources.map(src => {
+      const image = new Image();
+      image.src = src;
+      return image;
+    });
+    this.heroTrailIndex = 0;
+    this.heroTrailActive = false;
+    this.heroTrailLast = { x: -1000, y: -1000, time: 0 };
+    this.emitHeroTrail = (x, y) => {
+      if (!this.heroStage || !this.heroTrailActive) return;
+      if (matchMedia('(prefers-reduced-motion: reduce), (hover: none), (pointer: coarse)').matches) return;
+      const now = performance.now();
+      const dx = x - this.heroTrailLast.x;
+      const dy = y - this.heroTrailLast.y;
+      if (now - this.heroTrailLast.time < 88 || Math.hypot(dx, dy) < 36) return;
 
-    this.onScroll = () => { this.dirty = true; };
+      const rect = this.heroStage.getBoundingClientRect();
+      const image = document.createElement('img');
+      const direction = this.heroTrailIndex % 2 ? 1 : -1;
+      image.className = 'hero-trail-image';
+      image.src = this.heroTrailSources[this.heroTrailIndex % this.heroTrailSources.length];
+      image.alt = '';
+      image.setAttribute('aria-hidden', 'true');
+      image.style.left = `${x - rect.left}px`;
+      image.style.top = `${y - rect.top}px`;
+      this.heroStage.appendChild(image);
+      this.heroTrailIndex += 1;
+      this.heroTrailLast = { x, y, time: now };
+
+      const animation = image.animate([
+        { opacity: 0, transform: `translate3d(-50%, -46%, 0) scale(.72) rotate(${direction * -4}deg)` },
+        { opacity: .9, transform: `translate3d(-50%, -50%, 0) scale(1) rotate(${direction}deg)`, offset: .14 },
+        { opacity: .72, transform: `translate3d(calc(-50% + ${direction * 7}px), calc(-50% - 22px), 0) scale(.98) rotate(${direction * 2.5}deg)`, offset: .68 },
+        { opacity: 0, transform: `translate3d(calc(-50% + ${direction * 16}px), calc(-50% - 68px), 0) scale(.88) rotate(${direction * 5}deg)` }
+      ], {
+        duration: 1280,
+        easing: 'cubic-bezier(.22, .61, .36, 1)',
+        fill: 'forwards'
+      });
+      animation.finished.then(() => image.remove()).catch(() => image.remove());
+    };
+
+    this.navbar = root.querySelector('header');
+    this.lastScrollY = scrollY;
+    this.onScroll = () => {
+      const currentY = Math.max(0, scrollY);
+      if (this.navbar) {
+        if (currentY <= 40 || currentY < this.lastScrollY - 1) {
+          this.navbar.classList.remove('is-hidden');
+        } else if (currentY > this.lastScrollY + 1) {
+          this.navbar.classList.add('is-hidden');
+        }
+      }
+      this.lastScrollY = currentY;
+      this.dirty = true;
+    };
     this.onMove = e => {
+      this.heroTrailActive = !!e.target.closest?.('#top');
       this.mouse.x = e.clientX; this.mouse.y = e.clientY;
       const t = e.target.closest ? e.target.closest('[data-cursor="view"]') : null;
       this.setCursor(!!t);
@@ -56,12 +117,12 @@ class Component extends DCLogic {
     addEventListener('mousemove', this.onMove, { passive: true });
 
     this.workItems = [
-      { title: 'Novus Finance', industry: 'DIGITAL TRANSFORMATION', description: 'One connected financial ecosystem designed to turn complex treasury decisions into clear, confident action.', services: 'UX / UI · DEVELOPMENT · STRATEGY', category: 'FINTECH PLATFORM', year: '2026', src: './assets/work/dignisys-finance.png', alt: 'Enterprise finance analytics platform on a widescreen display', focusY: 50 },
-      { title: 'Aster Health', industry: 'DIGITAL HEALTH', description: 'A calmer digital care journey connecting patients, clinicians and everyday health insight.', services: 'PRODUCT DESIGN · RESEARCH · MOBILE', category: 'HEALTH ECOSYSTEM', year: '2026', src: './assets/work/dignisys-health.png', alt: 'Two mobile devices presenting a digital health experience', focusY: 50 },
-      { title: 'Northline', industry: 'CONNECTED OPERATIONS', description: 'A real-time operational twin that gives global logistics teams one precise view of movement and risk.', services: 'SERVICE DESIGN · 3D · ENGINEERING', category: 'LOGISTICS SYSTEM', year: '2025', src: './assets/work/dignisys-logistics.png', alt: 'Digital twin of a connected logistics distribution centre', focusY: 50 },
-      { title: 'CoreVista', industry: 'ENTERPRISE INTELLIGENCE', description: 'A decision platform that brings fragmented commercial data into one focused executive experience.', services: 'DATA EXPERIENCE · AI · DESIGN SYSTEM', category: 'DATA PLATFORM', year: '2025', src: './assets/work/dignisys-finance.png', alt: 'Detailed enterprise intelligence interface', focusY: 54 },
-      { title: 'Morrow Care', industry: 'PATIENT EXPERIENCE', description: 'An accessible companion that turns continuous health data into useful, human daily guidance.', services: 'ACCESSIBILITY · UX / UI · DEVELOPMENT', category: 'CARE PLATFORM', year: '2025', src: './assets/work/dignisys-health.png', alt: 'Accessible mobile patient experience', focusY: 48 },
-      { title: 'Axis Global', industry: 'SUPPLY CHAIN', description: 'A resilient supply-chain command centre built to surface exceptions before they become disruption.', services: 'STRATEGY · PLATFORM · OPTIMISATION', category: 'OPERATIONS PLATFORM', year: '2024', src: './assets/work/dignisys-logistics.png', alt: 'Enterprise supply-chain command centre visualisation', focusY: 52 }
+      { title: 'Novus Finance', industry: 'DIGITAL TRANSFORMATION', description: 'One connected financial ecosystem designed to turn complex treasury decisions into clear, confident action.', services: 'UX / UI · DEVELOPMENT · STRATEGY', category: 'FINTECH PLATFORM', year: '2026', src: './assets/work/bhushan-first-case-study.jpg', alt: 'Novus Finance digital product case study', focusY: 50, aspect: '6432 / 3072', aspectNumber: 2.09375 },
+      { title: 'Aster Health', industry: 'DIGITAL HEALTH', description: 'A calmer digital care journey connecting patients, clinicians and everyday health insight.', services: 'PRODUCT DESIGN · RESEARCH · MOBILE', category: 'HEALTH ECOSYSTEM', year: '2026', src: './assets/work/dignisys-health.png', alt: 'Two mobile devices presenting a digital health experience', focusY: 50, aspect: '3 / 2', aspectNumber: 1.5 },
+      { title: 'Northline', industry: 'CONNECTED OPERATIONS', description: 'A real-time operational twin that gives global logistics teams one precise view of movement and risk.', services: 'SERVICE DESIGN · 3D · ENGINEERING', category: 'LOGISTICS SYSTEM', year: '2025', src: './assets/work/dignisys-logistics.png', alt: 'Digital twin of a connected logistics distribution centre', focusY: 50, aspect: '2 / 1', aspectNumber: 2 },
+      { title: 'CoreVista', industry: 'ENTERPRISE INTELLIGENCE', description: 'A decision platform that brings fragmented commercial data into one focused executive experience.', services: 'DATA EXPERIENCE · AI · DESIGN SYSTEM', category: 'DATA PLATFORM', year: '2025', src: './assets/work/dignisys-finance.png', alt: 'Detailed enterprise intelligence interface', focusY: 54, aspect: '3 / 2', aspectNumber: 1.5 },
+      { title: 'Morrow Care', industry: 'PATIENT EXPERIENCE', description: 'An accessible companion that turns continuous health data into useful, human daily guidance.', services: 'ACCESSIBILITY · UX / UI · DEVELOPMENT', category: 'CARE PLATFORM', year: '2025', src: './assets/work/dignisys-health.png', alt: 'Accessible mobile patient experience', focusY: 48, aspect: '3 / 2', aspectNumber: 1.5 },
+      { title: 'Axis Global', industry: 'SUPPLY CHAIN', description: 'A resilient supply-chain command centre built to surface exceptions before they become disruption.', services: 'STRATEGY · PLATFORM · OPTIMISATION', category: 'OPERATIONS PLATFORM', year: '2024', src: './assets/work/dignisys-logistics.png', alt: 'Enterprise supply-chain command centre visualisation', focusY: 52, aspect: '2 / 1', aspectNumber: 2 }
     ];
     this.workPreloads = this.workItems.map(item => {
       const image = new Image();
@@ -104,6 +165,7 @@ class Component extends DCLogic {
       flipField('flipCategory').textContent = item.category;
       flipField('flipYear').textContent = item.year;
     };
+    this.renderFlipMeta(0);
     this.flipTo = (next, preferredDirection) => {
       const n = this.workItems.length;
       next = (next + n) % n;
@@ -185,6 +247,7 @@ class Component extends DCLogic {
       this.pos.x += (this.mouse.x - this.pos.x) * 0.16;
       this.pos.y += (this.mouse.y - this.pos.y) * 0.16;
       if (this.cursor) this.cursor.style.transform = `translate3d(${this.pos.x}px,${this.pos.y}px,0)`;
+      this.emitHeroTrail(this.pos.x, this.pos.y);
       if (this.workCta) {
         this.workCtaPos.x += (this.workCtaTarget.x - this.workCtaPos.x) * .18;
         this.workCtaPos.y += (this.workCtaTarget.y - this.workCtaPos.y) * .18;
@@ -240,7 +303,11 @@ class Component extends DCLogic {
       const qa = s => t.el.querySelectorAll(s);
       if (t.name === 'hero') {
         const ht = q('heroType');
-        if (ht) { const s = 1 - 0.55 * ease(p); ht.style.transform = `translate3d(0,${-p * 16}vh,0) scale(${s})`; ht.style.opacity = String(cl(1 - seg(p, 0.72, 0.98), 0, 1)); }
+        if (ht) {
+          const s = 1 - .12 * ease(p);
+          ht.style.transform = `translate3d(0,${-p * 7}vh,0) scale(${s})`;
+          ht.style.opacity = String(cl(1 - seg(p, .68, 1), 0, 1));
+        }
         const line = q('heroLine');
         if (line) line.style.transform = `translate3d(0,${seg(p, 0.55, 0.85) * 120}%,0)`;
         const gallery = q('heroGallery');
