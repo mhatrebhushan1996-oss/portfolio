@@ -5,6 +5,40 @@ class Component extends DCLogic {
     const root = document.querySelector('[data-root]');
     if (!root) return;
     this.root = root;
+    const heroHeading = root.querySelector('#top h1');
+    if (heroHeading && !heroHeading.querySelector('.hero-letter')) {
+      let characterPosition = 0;
+      const wrapHeroText = node => {
+        [...node.childNodes].forEach(child => {
+          if (child.nodeType === Node.TEXT_NODE) {
+            const fragment = document.createDocumentFragment();
+            child.textContent.split(/(\s+)/).forEach(part => {
+              if (!part) return;
+              if (/^\s+$/.test(part)) {
+                fragment.appendChild(document.createTextNode(' '));
+                characterPosition += part.length;
+                return;
+              }
+              const word = document.createElement('span');
+              word.className = 'hero-word';
+              [...part].forEach(character => {
+                const letter = document.createElement('span');
+                letter.className = 'hero-letter';
+                letter.textContent = character;
+                letter.style.setProperty('--letter-delay', `${characterPosition * 18}ms`);
+                word.appendChild(letter);
+                characterPosition += 1;
+              });
+              fragment.appendChild(word);
+            });
+            child.replaceWith(fragment);
+          } else if (child.nodeType === Node.ELEMENT_NODE) {
+            wrapHeroText(child);
+          }
+        });
+      };
+      [...heroHeading.children].forEach(wrapHeroText);
+    }
     this.tracks = [...root.querySelectorAll('[data-track]')].map(el => ({ el, name: el.dataset.track }));
     this.cursor = root.querySelector('[data-el="cursor"]');
     this.cdot = root.querySelector('[data-el="cursorDot"]');
@@ -13,9 +47,9 @@ class Component extends DCLogic {
     this.pos = { ...this.mouse };
     this.heroStage = root.querySelector('.hero-stage');
     this.heroTrailSources = [
-      './assets/work/bhushan-first-case-study.jpg',
-      './assets/work/dignisys-health.png',
-      './assets/work/dignisys-logistics.png'
+      './assets/work/aeva-living-case-study.jpg',
+      './assets/work/house-of-khemani-case-study.jpg',
+      './assets/work/not-your-idea-case-study.jpg'
     ];
     this.heroTrailPreloads = this.heroTrailSources.map(src => {
       const image = new Image();
@@ -25,9 +59,10 @@ class Component extends DCLogic {
     this.heroTrailIndex = 0;
     this.heroTrailActive = false;
     this.heroTrailLast = { x: -1000, y: -1000, time: 0 };
-    this.emitHeroTrail = (x, y) => {
-      if (!this.heroStage || !this.heroTrailActive) return;
-      if (matchMedia('(prefers-reduced-motion: reduce), (hover: none), (pointer: coarse)').matches) return;
+    this.emitHeroTrail = (x, y, force = false) => {
+      if (!this.heroStage || (!this.heroTrailActive && !force)) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!force && matchMedia('(hover: none), (pointer: coarse)').matches) return;
       const now = performance.now();
       const dx = x - this.heroTrailLast.x;
       const dy = y - this.heroTrailLast.y;
@@ -52,12 +87,31 @@ class Component extends DCLogic {
         { opacity: .72, transform: `translate3d(calc(-50% + ${direction * 7}px), calc(-50% - 22px), 0) scale(.98) rotate(${direction * 2.5}deg)`, offset: .68 },
         { opacity: 0, transform: `translate3d(calc(-50% + ${direction * 16}px), calc(-50% - 68px), 0) scale(.88) rotate(${direction * 5}deg)` }
       ], {
-        duration: 1280,
+        duration: 760,
         easing: 'cubic-bezier(.22, .61, .36, 1)',
         fill: 'forwards'
       });
       animation.finished.then(() => image.remove()).catch(() => image.remove());
     };
+
+    this.heroTrailTimers = [];
+    const startMobileHeroTrail = () => {
+      if (!matchMedia('(max-width: 760px)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      const points = [
+        [.18, .28], [.76, .22], [.28, .48], [.78, .53],
+        [.2, .7], [.68, .76], [.42, .84]
+      ];
+      points.forEach(([x, y], index) => {
+        const timer = setTimeout(() => {
+          const rect = this.heroStage?.getBoundingClientRect();
+          if (!rect || rect.bottom <= 0 || rect.top >= innerHeight) return;
+          this.emitHeroTrail(rect.left + rect.width * x, rect.top + rect.height * y, true);
+        }, index * 260);
+        this.heroTrailTimers.push(timer);
+      });
+    };
+    this.heroTrailDelayTimer = setTimeout(startMobileHeroTrail, 1400);
 
     this.navbar = root.querySelector('header');
     this.lastScrollY = scrollY;
@@ -117,12 +171,12 @@ class Component extends DCLogic {
     addEventListener('mousemove', this.onMove, { passive: true });
 
     this.workItems = [
-      { title: 'Novus Finance', industry: 'DIGITAL TRANSFORMATION', description: 'One connected financial ecosystem designed to turn complex treasury decisions into clear, confident action.', services: 'UX / UI · DEVELOPMENT · STRATEGY', category: 'FINTECH PLATFORM', year: '2026', src: './assets/work/bhushan-first-case-study.jpg', alt: 'Novus Finance digital product case study', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 },
-      { title: 'Aster Health', industry: 'DIGITAL HEALTH', description: 'A calmer digital care journey connecting patients, clinicians and everyday health insight.', services: 'PRODUCT DESIGN · RESEARCH · MOBILE', category: 'HEALTH ECOSYSTEM', year: '2026', src: './assets/work/dignisys-health.png', alt: 'Two mobile devices presenting a digital health experience', focusY: 50, aspect: '3 / 2', aspectNumber: 1.5 },
-      { title: 'Northline', industry: 'CONNECTED OPERATIONS', description: 'A real-time operational twin that gives global logistics teams one precise view of movement and risk.', services: 'SERVICE DESIGN · 3D · ENGINEERING', category: 'LOGISTICS SYSTEM', year: '2025', src: './assets/work/dignisys-logistics.png', alt: 'Digital twin of a connected logistics distribution centre', focusY: 50, aspect: '2 / 1', aspectNumber: 2 },
-      { title: 'CoreVista', industry: 'ENTERPRISE INTELLIGENCE', description: 'A decision platform that brings fragmented commercial data into one focused executive experience.', services: 'DATA EXPERIENCE · AI · DESIGN SYSTEM', category: 'DATA PLATFORM', year: '2025', src: './assets/work/dignisys-finance.png', alt: 'Detailed enterprise intelligence interface', focusY: 54, aspect: '3 / 2', aspectNumber: 1.5 },
-      { title: 'Morrow Care', industry: 'PATIENT EXPERIENCE', description: 'An accessible companion that turns continuous health data into useful, human daily guidance.', services: 'ACCESSIBILITY · UX / UI · DEVELOPMENT', category: 'CARE PLATFORM', year: '2025', src: './assets/work/dignisys-health.png', alt: 'Accessible mobile patient experience', focusY: 48, aspect: '3 / 2', aspectNumber: 1.5 },
-      { title: 'Axis Global', industry: 'SUPPLY CHAIN', description: 'A resilient supply-chain command centre built to surface exceptions before they become disruption.', services: 'STRATEGY · PLATFORM · OPTIMISATION', category: 'OPERATIONS PLATFORM', year: '2024', src: './assets/work/dignisys-logistics.png', alt: 'Enterprise supply-chain command centre visualisation', focusY: 52, aspect: '2 / 1', aspectNumber: 2 }
+      { title: 'AEVA LIVING', industry: 'DIGITAL TRANSFORMATION', description: 'One connected financial ecosystem designed to turn complex treasury decisions into clear, confident action.', services: 'UX / UI · DEVELOPMENT · STRATEGY', category: 'FINTECH PLATFORM', year: '2026', src: './assets/work/aeva-living-case-study.jpg', alt: 'Aeva Residence luxury villa website case study', href: 'https://www.aevaliving.com/', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 },
+      { title: 'House Of Khemani', industry: 'DIGITAL HEALTH', description: 'A calmer digital care journey connecting patients, clinicians and everyday health insight.', services: 'PRODUCT DESIGN · RESEARCH · MOBILE', category: 'HEALTH ECOSYSTEM', year: '2026', src: './assets/work/house-of-khemani-case-study.jpg', alt: 'House Of Khemani website case study', href: 'https://dev.khemani.bayalis.in/', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 },
+      { title: 'Not Your Idea', industry: 'CONNECTED OPERATIONS', description: 'A real-time operational twin that gives global logistics teams one precise view of movement and risk.', services: 'SERVICE DESIGN · 3D · ENGINEERING', category: 'LOGISTICS SYSTEM', year: '2025', src: './assets/work/not-your-idea-case-study.jpg', alt: 'Not Your Idea website case study', href: 'https://notyouridea.com/', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 },
+      { title: 'Villoo Poonawalla Foundation', industry: 'ENTERPRISE INTELLIGENCE', description: 'A decision platform that brings fragmented commercial data into one focused executive experience.', services: 'DATA EXPERIENCE · AI · DESIGN SYSTEM', category: 'DATA PLATFORM', year: '2025', src: './assets/work/villoo-poonawalla-foundation-case-study.jpg', alt: 'Villoo Poonawalla Foundation website case study', href: 'https://vpcf.org/', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 },
+      { title: 'Unsobered', industry: 'PATIENT EXPERIENCE', description: 'An accessible companion that turns continuous health data into useful, human daily guidance.', services: 'ACCESSIBILITY · UX / UI · DEVELOPMENT', category: 'CARE PLATFORM', year: '2025', src: './assets/work/unsobered-case-study.jpg', alt: 'Unsobered website case study', href: 'https://unsobered.com/', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 },
+      { title: 'L.S. Raheja College', industry: 'SUPPLY CHAIN', description: 'A resilient supply-chain command centre built to surface exceptions before they become disruption.', services: 'STRATEGY · PLATFORM · OPTIMISATION', category: 'OPERATIONS PLATFORM', year: '2024', src: './assets/work/ls-raheja-college-case-study.jpg', alt: 'L.S. Raheja College website case study', href: 'https://www.lsraheja.org/', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 }
     ];
     this.workPreloads = this.workItems.map(item => {
       const image = new Image();
@@ -156,14 +210,19 @@ class Component extends DCLogic {
       flipField('flipNumber').textContent = String(index + 1).padStart(2, '0');
       flipField('flipIndustry').textContent = item.industry;
       flipField('flipTitle').textContent = item.title;
-      const services = flipField('flipServices');
-      services.replaceChildren(...item.services.split('·').map(label => {
-        const chip = document.createElement('span');
-        chip.textContent = label.trim().toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-        return chip;
-      }));
       flipField('flipCategory').textContent = item.category;
       flipField('flipYear').textContent = item.year;
+      if (this.workCta) {
+        this.workCta.href = item.href || '#contact';
+        this.workCta.setAttribute('aria-label', `View ${item.title} case study`);
+        if (item.href) {
+          this.workCta.target = '_blank';
+          this.workCta.rel = 'noopener noreferrer';
+        } else {
+          this.workCta.removeAttribute('target');
+          this.workCta.removeAttribute('rel');
+        }
+      }
     };
     this.renderFlipMeta(0);
     this.flipTo = (next, preferredDirection) => {
@@ -279,6 +338,8 @@ class Component extends DCLogic {
     clearTimeout(this.flipSwapTimer);
     clearTimeout(this.flipEndTimer);
     clearTimeout(this.flipTextTimer);
+    clearTimeout(this.heroTrailDelayTimer);
+    this.heroTrailTimers?.forEach(clearTimeout);
     cancelAnimationFrame(this.raf); clearInterval(this.clockId);
   }
   setCursor(on) {
