@@ -170,6 +170,16 @@ class Component extends DCLogic {
     addEventListener('resize', this.onScroll);
     addEventListener('mousemove', this.onMove, { passive: true });
 
+    this.contactSection = root.querySelector('[data-track="contact"]');
+    if (this.contactSection) {
+      this.contactObserver = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        this.contactSection.classList.add('is-contact-visible');
+        this.contactObserver.disconnect();
+      }, { threshold: .15 });
+      this.contactObserver.observe(this.contactSection);
+    }
+
     this.workItems = [
       { title: 'AEVA LIVING', industry: 'DIGITAL TRANSFORMATION', description: 'One connected financial ecosystem designed to turn complex treasury decisions into clear, confident action.', services: 'UX / UI · DEVELOPMENT · STRATEGY', category: 'FINTECH PLATFORM', year: '2026', src: './assets/work/aeva-living-case-study.jpg', alt: 'Aeva Residence luxury villa website case study', href: 'https://www.aevaliving.com/', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 },
       { title: 'House Of Khemani', industry: 'DIGITAL HEALTH', description: 'A calmer digital care journey connecting patients, clinicians and everyday health insight.', services: 'PRODUCT DESIGN · RESEARCH · MOBILE', category: 'HEALTH ECOSYSTEM', year: '2026', src: './assets/work/house-of-khemani-case-study.jpg', alt: 'House Of Khemani website case study', href: 'https://dev.khemani.bayalis.in/', focusY: 50, aspect: '2144 / 1024', aspectNumber: 2.09375 },
@@ -200,6 +210,7 @@ class Component extends DCLogic {
       this.procPathLength = this.procPath.getTotalLength();
       this.procPath.style.strokeDasharray = `${this.procPathLength} ${this.procPathLength}`;
       this.procPath.style.strokeDashoffset = String(this.procPathLength);
+      this.procPath.style.visibility = 'visible';
     }
     this.flipCopy = root.querySelector('.work-flip-copy');
     this.flipImages = { a: root.querySelector('[data-el="flipImageA"]'), b: root.querySelector('[data-el="flipImageB"]') };
@@ -318,7 +329,7 @@ class Component extends DCLogic {
         const delta = this.procTarget - this.procProgress;
         this.procProgress = reduced || Math.abs(delta) < .0001
           ? this.procTarget
-          : this.procProgress + delta * .095;
+          : this.procProgress + delta * .24;
         this.procPath.style.strokeDashoffset = String(this.procPathLength * (1 - this.procProgress));
       }
       if (this.dirty) { this.dirty = false; this.update(); }
@@ -340,6 +351,7 @@ class Component extends DCLogic {
     clearTimeout(this.flipTextTimer);
     clearTimeout(this.heroTrailDelayTimer);
     this.heroTrailTimers?.forEach(clearTimeout);
+    this.contactObserver?.disconnect();
     cancelAnimationFrame(this.raf); clearInterval(this.clockId);
   }
   setCursor(on) {
@@ -440,27 +452,32 @@ class Component extends DCLogic {
         });
       } else if (t.name === 'proc') {
         const steps = [...qa('[data-step]')];
+        const pathRect = this.procPath?.ownerSVGElement?.getBoundingClientRect();
+        const nextSectionVisible = t.el.nextElementSibling?.getBoundingClientRect().top < vh;
+        this.procTarget = nextSectionVisible
+          ? 1
+          : pathRect?.height
+            ? cl((vh * .82 - pathRect.top) / pathRect.height, 0, 1)
+            : 0;
+        if (nextSectionVisible && this.procPath) {
+          this.procProgress = 1;
+          this.procPath.style.strokeDashoffset = '0';
+        }
         let active = 0;
         let closest = Infinity;
         steps.forEach((step, i) => {
           const card = step.getBoundingClientRect();
-          const reveal = cl((vh * .9 - card.top) / (vh * .42), 0, 1);
-          step.style.setProperty('--proc-opacity', String(reveal));
-          step.style.setProperty('--proc-y', `${(1 - ease(reveal)) * 70}px`);
+          const reveal = cl((vh * .82 - card.top) / (vh * .38), 0, 1);
+          const revealEase = ease(reveal);
+          step.style.setProperty('--proc-opacity', String(revealEase));
+          step.style.setProperty('--proc-y', `${(1 - revealEase) * 80}px`);
+          step.style.setProperty('--proc-scale', String(.97 + revealEase * .03));
           step.setAttribute('aria-hidden', reveal > .15 ? 'false' : 'true');
           const distance = Math.abs(card.top + card.height / 2 - vh / 2);
           if (distance < closest) { closest = distance; active = i; }
         });
         const current = q('procCurrent');
         if (current) current.textContent = String(active + 1).padStart(2, '0');
-        this.procTarget = p;
-      } else if (t.name === 'contact') {
-        const cta = q('cta');
-        if (cta) cta.style.transform = `scale(${0.82 + ease(seg(p, 0, 0.7)) * 0.3})`;
-        const st = q('stage');
-        if (st) { const k = seg(p, 0.2, 0.9); st.style.background = `radial-gradient(70% 70% at 50% 60%, rgb(255 90 36 / ${(0.16 * k).toFixed(3)}), rgba(247,244,238,0) 70%)`; }
-        const info = q('contactInfo');
-        if (info) { const ip = seg(p, 0.45, 0.75); info.style.opacity = String(ip); info.style.transform = `translate3d(0,${(1 - ease(ip)) * 40}px,0)`; }
       }
     }
   }
